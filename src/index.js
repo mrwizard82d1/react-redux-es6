@@ -5,4 +5,4 @@
 // Entry point for application
 
 // For now, just log to the console so I can smoke test the app.
-console.log("hi");
+// console.log("hi");
