@@ -3,6 +3,8 @@
  */
 
 // The (Redux) actions related to courses.
+//
+// Because we typically have *many* actions, we will export all functions (and will provide *no* default).
 
 export function createCourse(course) {
   // The returned object takes advantage of an ES6 feature: if the initial value of an object comes from a variable
