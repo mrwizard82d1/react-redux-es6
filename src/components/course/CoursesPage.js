@@ -11,8 +11,18 @@ class CoursesPage extends React.Component {
 
     // The state of an instance consists, for now, of a single course with a single property identified by "title."
     this.state = {
-      course: {title: null}
-    }
+      course: {title: ""}
+    };
+
+    // Previously, the value assigned to `this` in the `changeTitle` method depended on the "JavaScript this rules"
+    // (https://github.com/getify/You-Dont-Know-JS/blob/master/this%20%26%20object%20prototypes/ch2.md). Specifically,
+    // since a UI element invoked `changeTitle`, `this`, within that method, referred to `undefined`.
+    // Since the UI element did not, hopefully, have a state method, the browser warned us:
+    //
+    // Uncaught TypeError: Cannot read property 'state' of undefined.
+    //
+    // To repair this error, I must explicitly bind this when invoking this method.
+    this.changeTitle = this.changeTitle.bind(this);
   }
 
   // Change the title in response to the supplied event.
