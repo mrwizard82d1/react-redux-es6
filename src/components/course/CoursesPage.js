@@ -23,6 +23,9 @@ class CoursesPage extends React.Component {
     //
     // To repair this error, I must explicitly bind this when invoking this method.
     this.changeTitle = this.changeTitle.bind(this);
+
+    // To correctly use `saveChanges`, I must bind the `this` argument similarly.
+    this.saveChanges = this.saveChanges.bind(this);
   }
 
   // Change the title in response to the supplied event.
@@ -39,7 +42,8 @@ class CoursesPage extends React.Component {
 
   // Save any changes the user made to the course.
   saveChanges(event) {
-
+    console.log("`saveChanges` called");
+    console.log(`Saving ${this.state.course.title}`);
   }
 
   render() {
