@@ -8,6 +8,6 @@ import expect from "expect";
 
 describe('index.js', () => {
   it('should pass this canary test', () => {
-    expect(true).toBe(false);
+    expect(true).toBe(true);
   });
 });
