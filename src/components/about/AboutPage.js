@@ -12,10 +12,11 @@ class About extends React.Component {
   render() {
     return (
       <div>
+        <h1>About</h1>
         This application uses React, Redux, React Router and a variety of other helpful libraries.
       </div>
     );
-  };
+  }
 }
 
 export default About;

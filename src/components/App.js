@@ -3,6 +3,7 @@
  */
 
 import React, {PropTypes} from 'react';
+import Header from './common/Header';
 
 // This component provides the common skeleton for each and every page in our app.
 class App extends React.Component {
@@ -15,11 +16,11 @@ class App extends React.Component {
       //
       // Note that `react-router` has the responsibility to pass in the appropriate children for each and every page.
       <div className="container-fluid">
-        <p>A really cool header here...</p>
+        <Header />
         {this.props.children}
       </div>
     );
-  };
+  }
 }
 
 // We define `PropTypes` (and `defaultProps`) for the entire class. (Thus, defining them "out of line" of the class
