@@ -2,7 +2,7 @@
  * Created by larryjones on 4/22/17.
  */
 
-import React from "react";
+import React, {PropTypes} from "react";
 
 // We now connect this component to the application store using `connect`
 import {connect} from "react-redux";
@@ -53,6 +53,11 @@ class CoursesPage extends React.Component {
     this.props.dispatch(courseActions.createCourse(this.state.course));
   }
 
+  // Returns markup for a single course row.
+  courseRow(course, index) {
+    return <div key={index}>{course.title}</div>;
+  }
+
   render() {
     // Return a component with two children: a general header and a form for entering a new course.
     //
@@ -60,6 +65,7 @@ class CoursesPage extends React.Component {
     return (
       <div>
         <h1>Courses</h1>
+        {this.props.courses.map(this.courseRow)}
         <h2>Add Course</h2>
         <input type="text"
                onChange={this.changeTitle}
@@ -71,6 +77,11 @@ class CoursesPage extends React.Component {
     );
   }
 }
+
+CoursesPage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  courses: PropTypes.array.isRequired
+};
 
 // `mapStateToProps` maps the application state to properties.
 //
