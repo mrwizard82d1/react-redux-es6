@@ -2,6 +2,8 @@
  * Created by larryjones on 4/23/17.
  */
 
+import * as types from "./actionTypes";
+
 // The (Redux) actions related to courses.
 //
 // Because we typically have *many* actions, we will export all functions (and will provide *no* default).
@@ -15,6 +17,6 @@ export function createCourse(course) {
   // containing the course to be created. Because the variable, `course`, has the same name as the property, I simply
   // include the variable in the object literal and the engine takes care of the mapping.
   //
-  return {type: 'CREATE_COURSE', course};
+  return {type: types.CREATE_COURSE, course};
 }
 

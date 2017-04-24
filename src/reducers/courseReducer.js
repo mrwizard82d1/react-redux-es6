@@ -2,6 +2,8 @@
  * Created by larryjones on 4/23/17.
  */
 
+import * as types from "../actions/actionTypes";
+
 // Applies a change to the state managed by the Redux store returning a new state (instance). (Think
 // (Clojure / ClojureScript).
 //
@@ -26,7 +28,7 @@ export default function courseReducer(state = [], action) {
   // * A function lookup table (a "map" keyed by the action type)
 
   switch (action.type) {
-    case "CREATE_COURSE":
+    case types.CREATE_COURSE:
       // Note that the simplest way to update the state would be invoking `state.push(course)` and then returning
       // `state.` However, this violates the constraint that state is *immutable*. Using the ES6 feature,
       // `Object.assign`, allows us to create a completely new array with a "deep clone" the course included. (Ah,
