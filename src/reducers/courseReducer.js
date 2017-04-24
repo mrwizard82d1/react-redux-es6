@@ -38,7 +38,6 @@ export default function courseReducer(state = [], action) {
       // Finally, note that the spread operator, `...`, explodes its argument into the surrounding "context": an actual
       // function argument list or an array literal. (Think Clojure / ClojureScript `apply`.)
 
-      debugger;
       result = [...state, Object.assign({}, action.course)];
       break;
 

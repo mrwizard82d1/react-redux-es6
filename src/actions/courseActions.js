@@ -14,8 +14,7 @@ export function createCourse(course) {
   // Concretely, I want my action to have two properties: `type` (required for a Redux action creator) and `course`
   // containing the course to be created. Because the variable, `course`, has the same name as the property, I simply
   // include the variable in the object literal and the engine takes care of the mapping.
-
-  debugger;
+  //
   return {type: 'CREATE_COURSE', course};
 }
 

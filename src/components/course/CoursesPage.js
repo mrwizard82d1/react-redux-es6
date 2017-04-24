@@ -62,7 +62,6 @@ class CoursesPage extends React.Component {
     // Return a component with two children: a general header and a form for entering a new course.
     //
     // The form itself has a "title" and two input elements: the title text and a submit button.
-    debugger;
     return (
       <div>
         <h1>Courses</h1>
@@ -91,7 +90,6 @@ CoursesPage.propTypes = {
 //
 // In this case, we gain access to the routing related properties for the application.
 function mapStateToProps(state, ownProps) {
-  debugger;
   return {
     // Because in `index.js`, we refer to this state as `courses` (and not `courseReducer`), we can refer to it as
     // `state.courses`.
