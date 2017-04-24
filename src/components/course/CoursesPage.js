@@ -4,6 +4,12 @@
 
 import React from "react";
 
+// We now connect this component to the application store using `connect`
+import {connect} from "react-redux";
+
+// Import the course actions
+import * as courseActions from "../../actions/courseActions";
+
 class CoursesPage extends React.Component {
   // Initialize this React component with properties and a(n React) context.
   constructor(props, context) {
@@ -42,8 +48,8 @@ class CoursesPage extends React.Component {
 
   // Save any changes the user made to the course.
   saveChanges(event) {
-    console.log("`saveChanges` called");
-    console.log(`Saving ${this.state.course.title}`);
+    // Although this is "ugly," it works. In a future commit, we'll fix this ugliness.
+    this.props.dispatch(courseActions.createCourse(this.state.course));
   }
 
   render() {
@@ -65,4 +71,29 @@ class CoursesPage extends React.Component {
   }
 }
 
-export default CoursesPage;
+// `mapStateToProps` maps the application state to properties.
+//
+// The second parameter, `ownProps`, allows this function to use the component's "own" properties (not inherited
+// properties) to implement the necessary mapping.
+//
+// In this case, we gain access to the routing related properties for the application.
+function mapStateToProps(state, ownProps) {
+  return {
+    // Because in `index.js`, we refer to this state as `courses` (and not `courseReducer`), we can refer to it as
+    // `state.courses`.
+    courses: state.courses
+  };
+}
+
+// To connect this page to the Redux store, we export the decorated component.
+//
+// The syntax is unusual because `connect` is a higher-order function. Invoking `connect` returns a *function* that
+// accepts the React component that needs to connect to the Redux application store.
+//
+// Connect accepts two function parameters:
+// * `mapStateToProps`
+// * `mapDispatchToProps` (optional)
+//
+// If we *do not* supply `mapDispatchToProps`, `connect` injects a second parameter that can be accessed by
+// `this.props.dispatch` that allows me to fire off actions.
+export default connect(mapStateToProps)(CoursesPage);
