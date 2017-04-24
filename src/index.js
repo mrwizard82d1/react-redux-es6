@@ -32,12 +32,34 @@ import routes from "./routes";
 import "./styles/styles.css"; // Webpack can import CSS files too!
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
+// To load all courses at system start, I use the action, `LOAD_COURSES_SUCCESSFUL`.
+import {loadCourses} from "./actions/courseActions";
+
 // Create a configured Redux application store.
 //
 // Configure store takes an initial state. If one supplies it, it overrides the default `state` argument in
 // `courseReducer`. The value for this alternative initial state might be supplied from the server or from local
 // storage.
 const store = configureStore();
+
+// After the store is configured, I can dispatch any (initialization) actions, like loading courses.
+//
+// Originally, I simply called `loadCourses()`. This expression returns a function that can be dispatched, but does not
+// actually dispatch the eventual action. Consequently, my observation of never taking any breakpoints I inserted now
+// makes perfect sense. :)
+//
+// The instructor mentioned another approach of injecting JSON into the head of our page. This approach might be used if
+// we had chosen to perform server side rendering. The approach here, invoking `store.dispatch` with the action returned
+// by `loadCourses()` requires *no* server side rendering.
+//
+// Because of the way we invoke the asynchronous `loudCourses`, we only experience the delay on page refresh.
+// Specifically, if one is on the home page, refreshes the page and then navigates to "Courses," one will experience
+// *instantaneous* display of the course list. (This behavior is a consequence of loading the courses at *application
+// start* and not at page refresh.)
+//
+// However, if one navigates to the "Courses" page and then refreshes the page, one will experience the ~1s delay
+// specified in "./api/delay.js."
+store.dispatch(loadCourses());
 
 // To start the application, I render the router into the `app` element of `index.js`
 render(
