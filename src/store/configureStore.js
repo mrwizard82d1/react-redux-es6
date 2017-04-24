@@ -13,6 +13,9 @@ import rootReducer from "../reducers/index";
 // This middleware wil warn us if we (inadvertently) change the application state in our JavaScript code.
 import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
 
+// This middleware supports the use of asynchronous actions.
+import thunk from "redux-thunk";
+
 // Create the newly configured application store.
 //
 // One can use `initialState` to specify the initial state of the store. Specifying the initial state is, apparently,
@@ -26,6 +29,6 @@ export default function configureStore(initialState) {
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(reduxImmutableStateInvariant())
+    applyMiddleware(thunk, reduxImmutableStateInvariant())
   );
 }
