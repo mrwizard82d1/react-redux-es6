@@ -9,22 +9,40 @@
 // include the polyfill features that are needed. For example, in this course, the only feature not transpilable is
 // `Object.assign`. We could have just included that polyfill to optimize downloads. However, for simplicity, we
 // have simply included everything.
-import 'babel-polyfill';
-import React from 'react';
+import "babel-polyfill";
+import React from "react";
+
 // `react-dom` was split off from `react` in version 1.4; consequently, when one must render into the browser, one
 // must pull in `react-dom`.
-import {render} from 'react-dom';
+import {render} from "react-dom";
+
+// Import our `configureStore` function so we can create our configured store at application start.
+import configureStore from "./store/configureStore";
+
+// To pass the configured store to the application, we use a `Provider` component that wraps the `Router`.
+import {Provider} from "react-redux";
+
 // `Router` provides the React component for managing routes that wraps all our other components. Additionally,
-// `browserHistory` provides one with clean URL's (no octothorpes ('#')).
-import {Router, browserHistory} from 'react-router';
-import routes from './routes';
+// `browserHistory` provides one with clean URL"s (no octothorpes ("#")).
+import {Router, browserHistory} from "react-router";
+import routes from "./routes";
+
 // Webpack can bundle not only JavaScript files but other files as well. For example, we bundle some style information
 // that we (will eventually) need.
-import './styles/styles.css'; // Webpack can import CSS files too!
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import "./styles/styles.css"; // Webpack can import CSS files too!
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+// Create a configured Redux application store.
+//
+// Configure store takes an initial state. If one supplies it, it overrides the default `state` argument in
+// `courseReducer`. The value for this alternative initial state might be supplied from the server or from local
+// storage.
+const store = configureStore();
 
 // To start the application, I render the router into the `app` element of `index.js`
 render(
-  <Router history={browserHistory} routes={routes} />,
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
   document.getElementById("app")
 );
