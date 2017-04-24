@@ -48,9 +48,7 @@ class CoursesPage extends React.Component {
 
   // Save any changes the user made to the course.
   saveChanges(event) {
-    // This technique is the most verbose (and "ugly") way to dispatch an action. In the future, we will see other,
-    // more terse (elegant) ways to dispatch actions.
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    this.props.createCourse(this.state.course);
   }
 
   // Returns markup for a single course row.
@@ -79,7 +77,7 @@ class CoursesPage extends React.Component {
 }
 
 CoursesPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  createCourse: PropTypes.func.isRequired,
   courses: PropTypes.array.isRequired
 };
 
@@ -97,6 +95,17 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
+// Encapsulates `this.props.dispatch` behind domain-specific names (like `createCourse`)
+//
+// The framework supplies the `dispatch` function. The implementation hides this name behind domain-specific function
+// names.
+function mapDispatchToProps(dispatch) {
+  // Returns an object whose property names are domain specific.
+  return {
+    createCourse: course => dispatch(courseActions.createCourse(course))
+  };
+}
+
 // To connect this page to the Redux store, we export the decorated component.
 //
 // The syntax is unusual because `connect` is a higher-order function. Invoking `connect` returns a *function* that
@@ -108,4 +117,4 @@ function mapStateToProps(state, ownProps) {
 //
 // If we *do not* supply `mapDispatchToProps`, `connect` injects a second parameter that can be accessed by
 // `this.props.dispatch` that allows me to fire off actions.
-export default connect(mapStateToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
