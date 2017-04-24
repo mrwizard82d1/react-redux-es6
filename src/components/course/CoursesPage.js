@@ -7,6 +7,9 @@ import React, {PropTypes} from "react";
 // We now connect this component to the application store using `connect`
 import {connect} from "react-redux";
 
+// Use `bindActionCreators` to map *all* actions in a file.
+import {bindActionCreators} from "redux";
+
 // Import the course actions
 import * as courseActions from "../../actions/courseActions";
 
@@ -48,7 +51,7 @@ class CoursesPage extends React.Component {
 
   // Save any changes the user made to the course.
   saveChanges(event) {
-    this.props.createCourse(this.state.course);
+    this.props.actions.createCourse(this.state.course);
   }
 
   // Returns markup for a single course row.
@@ -77,7 +80,7 @@ class CoursesPage extends React.Component {
 }
 
 CoursesPage.propTypes = {
-  createCourse: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired
 };
 
@@ -100,9 +103,10 @@ function mapStateToProps(state, ownProps) {
 // The framework supplies the `dispatch` function. The implementation hides this name behind domain-specific function
 // names.
 function mapDispatchToProps(dispatch) {
-  // Returns an object whose property names are domain specific.
+  // Previous commits used a manually technique to map `dispatch` to `this.props`. Because this mapping is so common,
+  // redux provides a helper method to map *all* actions at one time.
   return {
-    createCourse: course => dispatch(courseActions.createCourse(course))
+    actions: bindActionCreators(courseActions, dispatch)
   };
 }
 
