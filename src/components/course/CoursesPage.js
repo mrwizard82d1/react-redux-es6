@@ -48,7 +48,8 @@ class CoursesPage extends React.Component {
 
   // Save any changes the user made to the course.
   saveChanges(event) {
-    // Although this is "ugly," it works. In a future commit, we'll fix this ugliness.
+    // This technique is the most verbose (and "ugly") way to dispatch an action. In the future, we will see other,
+    // more terse (elegant) ways to dispatch actions.
     this.props.dispatch(courseActions.createCourse(this.state.course));
   }
 
