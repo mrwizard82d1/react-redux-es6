@@ -2,21 +2,38 @@
  * Created by larryjones on 4/23/17.
  */
 
-import * as types from "./actionTypes";
-
 // The (Redux) actions related to courses.
 //
 // Because we typically have *many* actions, we will export all functions (and will provide *no* default).
 
-export function createCourse(course) {
-  // The returned object takes advantage of an ES6 feature: if the initial value of an object comes from a variable
-  // whose name is the same as the property which it initializes, one can leave it out. (Think the opposite of
-  // Clojure / ClojureScript map destructuring in a `let`.)
-  //
-  // Concretely, I want my action to have two properties: `type` (required for a Redux action creator) and `course`
-  // containing the course to be created. Because the variable, `course`, has the same name as the property, I simply
-  // include the variable in the object literal and the engine takes care of the mapping.
-  //
-  return {type: types.CREATE_COURSE, course};
+import * as types from "./actionTypes";
+
+// Import the (mock) course API.
+import courseApi from "../api/mockCourseApi";
+
+// Create an action assuming successfully loaded from external API.
+//
+// This particular action only fires if the API successfully loaded all the courses. We have, at least for now, chosen
+// very simple error handling (throwing an error). However, in production, we might create another action called, for
+// example, `loadCoursesError` or `loadCoursesFailure`. By including the "Successful" (or perhaps better, "Succeeded,")
+// suffix, we clarify that this action *only* occurs if loading the courses (asynchronously) was successful.
+function loadCoursesSuccessful(courses) {
+  return {type: types.LOAD_COURSES_SUCCESS, courses};
+}
+
+// Load courses from an "external" API.
+//
+// This function is a higher order function that *returns* a function accepting a `dispatch`.
+export function loadCourses() {
+  // Returning a function accepting a `dispatch` function is boilerplate present in every action involving a thunk.
+  return function(dispatch) {
+    return courseApi.getAllCourses()
+      .then(courses => {
+        dispatch(loadCoursesSuccessful(courses));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
 }
 
