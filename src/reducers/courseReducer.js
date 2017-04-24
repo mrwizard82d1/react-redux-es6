@@ -28,19 +28,12 @@ export default function courseReducer(state = [], action) {
   // * A function lookup table (a "map" keyed by the action type)
 
   switch (action.type) {
-    case types.CREATE_COURSE:
-      // Note that the simplest way to update the state would be invoking `state.push(course)` and then returning
-      // `state.` However, this violates the constraint that state is *immutable*. Using the ES6 feature,
-      // `Object.assign`, allows us to create a completely new array with a "deep clone" the course included. (Ah,
-      // Clojure / ClojureScript...)
+    case types.LOAD_COURSES_SUCCESS:
+      // This action *completely replaces* any state that we had. You have been warned.
       //
-      // `Object.assign` allows us to "merge" and number of source objects into a single target object. (Think Clojure /
-      // ClojureScript `merge` function (on maps).)
-      //
-      // Finally, note that the spread operator, `...`, explodes its argument into the surrounding "context": an actual
-      // function argument list or an array literal. (Think Clojure / ClojureScript `apply`.)
-
-      result = [...state, Object.assign({}, action.course)];
+      // An alternative, if we might load courses from multiple sources, would be to somehow merge the existing state
+      // with the returned state. In our application, this choice is fine, but might not be robust in other use cases.
+      result = action.courses;
       break;
 
     default:
