@@ -61,7 +61,7 @@ CourseForm.propTypes = {
   // The video somehow ran with the addition of `.isRequired`; my run failed reporting that `onChange` was required.
   // Removing this requirement allows the code to run *without* supplying this property.
   onSave: PropTypes.func /* .isRequired */,
-  onChange: PropTypes.func /* .isRequired */,
+  onChange: PropTypes.func.isRequired ,
   loading: PropTypes.bool,
   errors: PropTypes.object
 };

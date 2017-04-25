@@ -22,12 +22,30 @@ class ManageCoursePage extends React.Component {
       // Additionally, I need a place to record errors.
       errors: {}
     };
+
+    this.updateCourseState = this.updateCourseState.bind(this);
+  }
+
+  // A generic function to update the property of the course (in the state) corresponding to the edited field.
+  updateCourseState(event) {
+    // Determine the field that was updated.
+    const field = event.target.name;
+
+    // Determine the course once (an explaining variable)
+    let course = this.state.course;
+
+    // Update the changed field of the course
+    course[field] = event.target.value;
+
+    // Change the state (propagating changes as appropriate)
+    return this.setState({course});
   }
 
   render() {
     return (
       <CourseForm
         allAuthors={this.props.authors}
+        onChange={this.updateCourseState}
         course={this.state.course}
         errors={this.state.errors} />
     );
