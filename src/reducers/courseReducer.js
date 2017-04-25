@@ -37,6 +37,16 @@ export default function courseReducer(state = initialState.courses, action) {
       result = action.courses;
       break;
 
+    case types.CREATE_COURSE_SUCCESS:
+      // Append (a clone of) the newly created course to (a clone of) the state. (Remember to preserve immutability!)
+      result = [...state, Object.assign({}, action.course)];
+      break;
+
+    case types.UPDATE_COURSE_SUCCESS:
+      // Replace the original course with (a clone of) the updated course. (Remember to preserve immutability!)
+      result = [...state.filter(course => course.id != action.course.id), Object.assign({}, action.course)];
+      break;
+
     default:
       // We expect to receive actions that we *do not* handle; if so, we simply return the existing state. (Seems
       // strange to me, but...)
