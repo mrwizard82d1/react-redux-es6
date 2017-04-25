@@ -21,6 +21,14 @@ function loadCoursesSuccessful(courses) {
   return {type: types.LOAD_COURSES_SUCCESS, courses};
 }
 
+function updateCourseSuccess(course) {
+  return {type: types.UPDATE_COURSE_SUCCESS, course};
+}
+
+function createCourseSuccess(course) {
+  return {type: types.CREATE_COURSE_SUCCESS, course};
+}
+
 // Load courses from an "external" API.
 //
 // This function is a higher order function that *returns* a function accepting a `dispatch`.
@@ -37,3 +45,24 @@ export function loadCourses() {
   };
 }
 
+// Saves a course.
+//
+// This function is a higher order function that *returns* a function accepting a `dispatch`.
+export function saveCourse(course) {
+  // Although not used in this example, `getState` is a(n optional) function that allows this thunk to get the current
+  // state of the store.
+  //
+  // Because this function has the 'course` parameter set to the course to be changed, we do not need to use `getState`;
+  // however, in some usage scenarios, the caller may not have the updated (partial) state.
+  return function(dispatch, getState) {
+    return courseApi.saveCourse(course)
+      .then(savedCourse => {
+        // If the course already exists (that is, `course.id` is truthy), dispatch the update course successful action.
+        // If the course does not exist (`course.id` is falsey), dispatch the create course successful action.
+        dispatch(course.id ? updateCourseSuccess(savedCourse) : createCourseSuccess(savedCourse));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
