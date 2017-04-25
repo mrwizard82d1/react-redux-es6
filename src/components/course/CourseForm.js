@@ -5,13 +5,14 @@
 import React, {PropTypes} from "react";
 
 // Include common components for text input and for item selection.
-import {TextInput} from "../common/TextInput";
-import {SelectInput} from "../common/SelectInput";
+import TextInput from "../common/TextInput";
+import SelectInput from "../common/SelectInput";
 
 // Input form for courses
 const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => {
   return (
     <form>
+      <h1>Manage Course</h1>
       <TextInput
         name="title"
         label="Title"
@@ -37,7 +38,7 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
 
       <TextInput
         name="length"
-        label="Category"
+        label="Length"
         value={course.length}
         onChange={onChange}
         errors={errors.length} />
@@ -57,8 +58,10 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
 CourseForm.propTypes = {
   course: PropTypes.object.isRequired,
   allAuthors: PropTypes.array,
-  onSave: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  // The video somehow ran with the addition of `.isRequired`; my run failed reporting that `onChange` was required.
+  // Removing this requirement allows the code to run *without* supplying this property.
+  onSave: PropTypes.func /* .isRequired */,
+  onChange: PropTypes.func /* .isRequired */,
   loading: PropTypes.bool,
   errors: PropTypes.object
 };

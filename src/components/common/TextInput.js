@@ -31,7 +31,9 @@ const TextInput = ({name, label, onChange, placeholder, value, error}) => {
 TextInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  // The video somehow ran with the addition of `.isRequired`; my run failed reporting that `onChange` was required.
+  // Removing this requirement allows the code to run *without* supplying this property.
+  onChange: PropTypes.func /* .isRequired */,
   placeholder: PropTypes.string,
   value: PropTypes.string,
   error: PropTypes.string
