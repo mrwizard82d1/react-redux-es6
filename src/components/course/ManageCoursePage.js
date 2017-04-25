@@ -10,31 +10,31 @@ import {bindActionCreators} from "redux";
 import * as courseActions from "../../actions/courseActions";
 
 class ManageCoursePage extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-    }
+  constructor(props, context) {
+    super(props, context);
+  }
 
-    render() {
-        return (
-            <h1>Manage Course</h1>
-        );
-    }
+  render() {
+    return (
+      <h1>Manage Course</h1>
+    );
+  }
 }
 
 ManageCoursePage.propTypes = {
-    // myProps: PropTypes.string.isRequired
+  // myProps: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
-    return {
-        state: state
-    };
+  return {
+    state: state
+  };
 }
 
 function mapDispatchToPage(dispatch) {
-    return {
-        actions: bindActionCreators(courseActions, dispatch)
-    };
+  return {
+    actions: bindActionCreators(courseActions, dispatch)
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToPage)(ManageCoursePage);
