@@ -11,6 +11,7 @@ import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import CoursesPage from './components/course/CoursesPage';
+import ManageCoursePage from './components/course/ManageCoursePage';
 
 /**
  * The "router" is a "react component." Its "children" define the routes between pages.
@@ -21,11 +22,14 @@ import CoursesPage from './components/course/CoursesPage';
  * The "logic" of the router is to examine the URL, determine the appropriate child component(s) needed for that route
  * and then pass those children as the `props.children` argument passed to `App`.
  *
+ * The `path`, "course/:id", identifies a path whose second component is the ID of a course.
  */
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
-    <Route path="about" component={AboutPage}/>
     <Route path="courses" component={CoursesPage}/>
+    <Route path="course" component={ManageCoursePage}/>
+    <Route path="course/:id" component={ManageCoursePage}/>
+    <Route path="about" component={AboutPage}/>
   </Route>
 );
