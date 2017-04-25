@@ -80,22 +80,31 @@ ManageCoursePage.contextTypes = {
   router: PropTypes.object
 };
 
+function getCourseById(id, courses) {
+  // search for all courses with matching id's
+  const soughtCourses = courses.filter(course => course.id == id);
+
+  // if a matching course is found
+  if (soughtCourses.length) {
+    // return the first match
+    return soughtCourses[0];
+  }
+
+  // otherwise, return no match
+  return null;
+}
+
 function mapStateToProps(state, ownProps) {
   // For now, we simply construct an empty course to wire everything up.
   let course = {id: "", watchHref: "", title: "", authorId: "", length: "", category: ""};
 
-  // The authors is simply a list of information about each author:
-  //
-  // * Id
-  // * First name
-  // * Last name
-  //
-  // What we actually need for the `SelectInput` component is an object with the properties:
-  //
-  // * value
-  // * text
-  //
-  // We map each author to provide that information.
+  // If the user selected a course to navigate to this page, the url will be of the form "/course/:id." To get the url,
+  // we use the 'ownProps` parameter which has routing information.
+  if (ownProps.params.id) {
+    course = getCourseById(ownProps.params.id, state.courses);
+  }
+
+  // Map the author information to author "view information"
   const authorsFormattedForSelection = state.authors.map(author => {
     return {
       value: author.id,
