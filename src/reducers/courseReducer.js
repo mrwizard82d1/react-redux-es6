@@ -3,6 +3,7 @@
  */
 
 import * as types from "../actions/actionTypes";
+import initialState from "./initialState";
 
 // Applies a change to the state managed by the Redux store returning a new state (instance). (Think
 // (Clojure / ClojureScript).
@@ -18,7 +19,7 @@ import * as types from "../actions/actionTypes";
 // using the ES6 default value syntax. Using this syntax indicates that our initial state is an empty array of courses;
 // that is, no courses. (I'm not certain how one might initialize the state otherwise.)
 
-export default function courseReducer(state = [], action) {
+export default function courseReducer(state = initialState.courses, action) {
   let result = state;
 
   // Although handling the action types using a `switch` is the most common way of handling all the actions, bells may
