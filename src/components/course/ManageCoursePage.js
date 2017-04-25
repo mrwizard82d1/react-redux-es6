@@ -14,6 +14,7 @@ class ManageCoursePage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    // I believe this code is temporary?!?!?!
     this.state = {
       // To allow child components to write to this component, we clone a new course from the "read-only"
       // `props.course`.
@@ -26,7 +27,7 @@ class ManageCoursePage extends React.Component {
   render() {
     return (
       <CourseForm
-        allAuthors={[]}
+        allAuthors={this.props.authors}
         course={this.state.course}
         errors={this.state.errors} />
     );
@@ -34,13 +35,34 @@ class ManageCoursePage extends React.Component {
 }
 
 ManageCoursePage.propTypes = {
+  authors: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   // For now, we simply construct an empty course to wire everything up.
   let course = {id: "", watchHref: "", title: "", authorId: "", length: "", category: ""};
+
+  // The authors is simply a list of information about each author:
+  //
+  // * Id
+  // * First name
+  // * Last name
+  //
+  // What we actually need for the `SelectInput` component is an object with the properties:
+  //
+  // * value
+  // * text
+  //
+  // We map each author to provide that information.
+  const authorsFormattedForSelection = state.authors.map(author => {
+    return {
+      value: author.id,
+      text: `${author.firstName} ${author.lastName}`
+    };
+  });
   return {
+    authors: authorsFormattedForSelection,
     course: course
   };
 }
