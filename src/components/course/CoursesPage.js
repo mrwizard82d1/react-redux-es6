@@ -16,10 +16,19 @@ import * as courseActions from "../../actions/courseActions";
 // Import the CourseList component
 import CourseList from "./CourseList";
 
+// I need to change browser history if I add a course.
+import {browserHistory} from "react-router";
+
 class CoursesPage extends React.Component {
   // Initialize this React component with properties and a(n React) context.
   constructor(props, context) {
     super(props, context);
+
+    this.redirectToCoursePage = this.redirectToCoursePage.bind(this);
+  }
+
+  redirectToCoursePage() {
+    browserHistory.push("/course");
   }
 
   render() {
@@ -27,6 +36,10 @@ class CoursesPage extends React.Component {
     return (
       <div>
         <h1>Courses</h1>
+        <input type="submit"
+               value="Add Course"
+               className="btn btn-primary"
+               onClick={this.redirectToCoursePage} />
         <CourseList courses={courses}/>
       </div>
     );

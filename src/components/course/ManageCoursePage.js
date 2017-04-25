@@ -24,6 +24,7 @@ class ManageCoursePage extends React.Component {
     };
 
     this.updateCourseState = this.updateCourseState.bind(this);
+    this.saveCourse = this.saveCourse.bind(this);
   }
 
   // A generic function to update the property of the course (in the state) corresponding to the edited field.
@@ -41,11 +42,17 @@ class ManageCoursePage extends React.Component {
     return this.setState({course});
   }
 
+  saveCourse(event) {
+    event.preventDefault();
+    this.props.actions.saveCourse(this.state.course);
+  }
+
   render() {
     return (
       <CourseForm
         allAuthors={this.props.authors}
         onChange={this.updateCourseState}
+        onSave={this.saveCourse}
         course={this.state.course}
         errors={this.state.errors} />
     );
@@ -54,7 +61,8 @@ class ManageCoursePage extends React.Component {
 
 ManageCoursePage.propTypes = {
   authors: PropTypes.array.isRequired,
-  course: PropTypes.object.isRequired
+  course: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
