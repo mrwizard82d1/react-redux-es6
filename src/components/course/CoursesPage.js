@@ -13,25 +13,21 @@ import {bindActionCreators} from "redux";
 // Import the course actions
 import * as courseActions from "../../actions/courseActions";
 
+// Import the CourseList component
+import CourseList from "./CourseList";
+
 class CoursesPage extends React.Component {
   // Initialize this React component with properties and a(n React) context.
   constructor(props, context) {
     super(props, context);
   }
 
-  // Returns markup for a single course row.
-  courseRow(course, index) {
-    return <div key={index}>{course.title}</div>;
-  }
-
   render() {
-    // Return a component with two children: a general header and a form for entering a new course.
-    //
-    // The form itself has a "title" and two input elements: the title text and a submit button.
+    const {courses} = this.props;
     return (
       <div>
         <h1>Courses</h1>
-        {this.props.courses.map(this.courseRow)}
+        <CourseList courses={courses}/>
       </div>
     );
   }
