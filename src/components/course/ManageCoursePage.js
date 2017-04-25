@@ -45,6 +45,7 @@ class ManageCoursePage extends React.Component {
   saveCourse(event) {
     event.preventDefault();
     this.props.actions.saveCourse(this.state.course);
+    this.context.router.push("/courses");
   }
 
   render() {
@@ -63,6 +64,20 @@ ManageCoursePage.propTypes = {
   authors: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
+};
+
+// The `react-router` package provides a number of ways to redirect. We saw one in `CoursesPage.redirectToCoursePage`.
+// In this module, I the global context type of `router` from `react-router`.
+//
+// To use context types (which are global), I must "opt-in" to using the router context. The router
+// context is not available by default because it is *global* state. Generally, we want to avoid global state; however,
+// allowing a library or consumer author to opt-in allows one to avoid boilerplate code (not demonstrated) to access
+// routing information.
+//
+// Because `context` is a static, I must opt-in by attaching it to the class.
+ManageCoursePage.contextTypes = {
+  // Note: *not* making this property required avoids a lint warning in a future module. Behavior is not impacted.
+  router: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
