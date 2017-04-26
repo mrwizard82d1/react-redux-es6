@@ -101,7 +101,12 @@ function mapStateToProps(state, ownProps) {
   // If the user selected a course to navigate to this page, the url will be of the form "/course/:id." To get the url,
   // we use the 'ownProps` parameter which has routing information.
   if (ownProps.params.id) {
-    course = getCourseById(ownProps.params.id, state.courses);
+    const candidateCourse = getCourseById(ownProps.params.id, state.courses);
+    // In same situations, `state.courses` is empty the first time it its called (initialization). Because
+    // `state.courses` is empty, `getCourseById` returns `null`. If `course` is `null`, the console reports a warning:
+    // "Failed propType: Required prop 'course' was not specified in 'ManagedCoursePage'...." The following assignment
+    // prevents that warning.
+    course = candidateCourse || course;
   }
 
   // Map the author information to author "view information"
