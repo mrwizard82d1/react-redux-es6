@@ -27,6 +27,20 @@ class ManageCoursePage extends React.Component {
     this.saveCourse = this.saveCourse.bind(this);
   }
 
+  // Respond to React about to change props
+  //
+  // The argument, `nextProps`, contains the updated `props`.
+  //
+  // Note that React is conservative in determining if props have changed. If the props may have changed, but React
+  // cannot definitively assert they have changed, it invokes this method anyway.
+  componentWillReceiveProps(nextProps) {
+    // If the id of the course in my props differs from the id of the course in the (possibly) updated props
+    if (this.props.course.id !== nextProps.course.id) {
+      // Then I change my state to the new course.
+      this.setState({course: Object.assign({}, nextProps.course)});
+    }
+  }
+
   // A generic function to update the property of the course (in the state) corresponding to the edited field.
   updateCourseState(event) {
     // Determine the field that was updated.
