@@ -8,12 +8,14 @@ import {combineReducers} from "redux";
 // the courses part of the state. I made a similar choice about `authors`.
 import courses from "./courseReducer";
 import authors from "./authorReducer";
+import ajaxStatus from "./ajaxStatusReducer";
 
 const rootReducer = combineReducers({
   // Again, we use the ES6 "shorthand property name" that "automagically" names a property after the name of the
   // value used to create the property.
   authors,
-  courses
+  courses,
+  ajaxStatus,
 });
 
 export default rootReducer;
