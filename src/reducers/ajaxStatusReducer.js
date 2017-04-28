@@ -20,8 +20,7 @@ function actionTypeIndicatesSuccess(actionType) {
  * @param state - The (slice of) state  of the application.
  * @param action - The action being performed.
  */
-export function ajaxStatusReducer(state=initialState.ajaxCallsInProgressCount, action) {
-  debugger;
+export default function ajaxStatusReducer(state=initialState.ajaxCallsInProgressCount, action) {
   if (action.type === types.BEGIN_AJAX_CALL) {
     return state + 1;
   }

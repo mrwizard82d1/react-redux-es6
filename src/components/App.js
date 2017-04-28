@@ -2,10 +2,13 @@
  * Created by larryjones on 4/22/17.
  */
 
-import React, {PropTypes} from 'react';
-import Header from './common/Header';
+import React, {PropTypes} from "react";
+import {connect} from "react-redux";
+import Header from "./common/Header";
 
-// This component provides the common skeleton for each and every page in our app.
+/**
+ * Provides the common skeleton for each and every page in our app.
+ */
 class App extends React.Component {
   render() {
     return (
@@ -16,18 +19,31 @@ class App extends React.Component {
       //
       // Note that `react-router` has the responsibility to pass in the appropriate children for each and every page.
       <div className="container-fluid">
-        <Header />
+        <Header loading={this.props.loading}/>
         {this.props.children}
       </div>
     );
   }
 }
 
-// We define `PropTypes` (and `defaultProps`) for the entire class. (Thus, defining them "out of line" of the class
-// definition.
+/**
+ * We define `PropTypes` (and, optionally, `defaultProps`) for all instances of the class.
+ * @type {{children: *}}
+ */
 App.propTypes = {
-  // Whatever object is passed for `props` *must* define a property named `children`.
-  children: PropTypes.object.isRequired
+  // Whatever object is passed for `props` *must* define a property named `children`
+  children: PropTypes.object.isRequired,
+  // And a property named `loading` with a `boolean` value
+  loading: PropTypes.bool.isRequired
 };
 
-export default App;
+/**
+ * Maps from the UI state to the props needed by this component.
+ * @param state - The state used to render the UI.
+ * @param ownProps - The properties owned by the component. This props provide access to routing information etc.
+ */
+function mapStateToProps(state, ownProps) {
+  return {loading: state.ajaxCallsInProgressCount > 0};
+}
+
+export default connect(mapStateToProps)(App);
