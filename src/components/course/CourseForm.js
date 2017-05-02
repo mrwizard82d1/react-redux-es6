@@ -9,7 +9,7 @@ import TextInput from "../common/TextInput";
 import SelectInput from "../common/SelectInput";
 
 // Input form for courses
-const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => {
+const CourseForm = ({course, allAuthors, onSave, onChange, saving, errors}) => {
   return (
     <form>
       <h1>Manage Course</h1>
@@ -45,8 +45,8 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
 
       <input
         type="submit"
-        disabled={loading}
-        value={loading ? "Saving..." : "Save"}
+        disabled={saving}
+        value={saving ? "Saving..." : "Save"}
         className="btn btn-primary"
         onClick={onSave}
       />
@@ -62,7 +62,7 @@ CourseForm.propTypes = {
   // Removing this requirement allows the code to run *without* supplying this property.
   onSave: PropTypes.func /* .isRequired */,
   onChange: PropTypes.func.isRequired ,
-  loading: PropTypes.bool,
+  saving: PropTypes.bool,
   errors: PropTypes.object
 };
 

@@ -20,7 +20,10 @@ class ManageCoursePage extends React.Component {
       // `props.course`.
       course: Object.assign({}, props.course),
       // Additionally, I need a place to record errors.
-      errors: {}
+      errors: {},
+      // The property `saving` is local state. It *does not* participate in the typical Redux flow (action -> reduce ->
+      // render updated).
+      saving: false
     };
 
     this.updateCourseState = this.updateCourseState.bind(this);
@@ -59,11 +62,13 @@ class ManageCoursePage extends React.Component {
 
   saveCourse(event) {
     event.preventDefault();
+    this.setState({saving: true});
     this.props.actions.saveCourse(this.state.course)
       .then(this.redirect);
   }
 
   redirect() {
+    this.setState({saving: false});
     this.context.router.push("/courses");
   }
 
@@ -74,7 +79,8 @@ class ManageCoursePage extends React.Component {
         onChange={this.updateCourseState}
         onSave={this.saveCourse}
         course={this.state.course}
-        errors={this.state.errors} />
+        errors={this.state.errors}
+        saving={this.state.saving} />
     );
   }
 }
