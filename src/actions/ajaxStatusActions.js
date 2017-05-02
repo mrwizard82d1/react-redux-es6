@@ -8,7 +8,7 @@ import initialState from "../reducers/initialState";
 /**
  * Action to fire when an AJAX call begins.
  */
-export function beginAjaxCall(state=initialState) {
+export function beginAjaxCall() {
   return {type: types.BEGIN_AJAX_CALL};
 }
 

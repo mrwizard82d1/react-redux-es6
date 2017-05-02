@@ -5,7 +5,7 @@
 // Create all the load authors actions.
 
 import * as types from "./actionTypes";
-import AuthorApi from "../api/mockAuthorApi";
+import authorApi from "../api/mockAuthorApi";
 import {beginAjaxCall} from "./ajaxStatusActions";
 
 
@@ -29,8 +29,8 @@ export function loadAuthorsSuccess(authors) {
  */
 export function loadAuthors() {
   return dispatch => {
-    dispatch(beginAjaxCall);
-    return AuthorApi.getAllAuthors()
+    dispatch(beginAjaxCall());
+    return authorApi.getAllAuthors()
       .then(authors => {
         dispatch(loadAuthorsSuccess(authors));
       })
