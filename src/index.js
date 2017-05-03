@@ -31,6 +31,7 @@ import routes from "./routes";
 // that we (will eventually) need.
 import "./styles/styles.css"; // Webpack can import CSS files too!
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/toastr/build/toastr.min.css";
 
 // I import all the actions to perform at app start.
 import {loadCourses} from "./actions/courseActions";
