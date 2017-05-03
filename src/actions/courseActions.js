@@ -10,7 +10,7 @@ import * as types from "./actionTypes";
 
 // Import the (mock) course API.
 import courseApi from "../api/mockCourseApi";
-import {beginAjaxCall} from "./ajaxStatusActions";
+import {beginAjaxCall, ajaxCallError} from "./ajaxStatusActions";
 
 /**
  * Create an action assuming successfully loaded from external API.
@@ -90,6 +90,7 @@ export function saveCourse(course) {
         dispatch(course.id ? updateCourseSuccess(savedCourse) : createCourseSuccess(savedCourse));
       })
       .catch(error => {
+        dispatch(ajaxCallError());
         throw error;
       });
   };
