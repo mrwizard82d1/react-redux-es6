@@ -11,7 +11,14 @@ import * as courseActions from "../../actions/courseActions";
 import CourseForm from "./CourseForm";
 import toastr from "toastr";
 
-class ManageCoursePage extends React.Component {
+/**
+ * In production, we use the fully connected component. However, the recommended
+ * (http://redux.js.org/docs/recipes/WritingTests.html#connected-components)
+ * approach to unit testing the *unconnected* component is by exporting the
+ * undecorated class using a named export and by exporting the connected
+ * component as the module default.
+ */
+export class ManageCoursePage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
