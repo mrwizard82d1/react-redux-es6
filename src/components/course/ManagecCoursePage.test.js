@@ -22,6 +22,6 @@ import { ManageCoursePage } from './ManageCoursePage';
 
 describe('ManageCoursePage', () => {
   it('sets an error when saving a course with no title', () => {
-    const cut = mount(<ManageCoursePage authors="" course="" actions=""/>);
+    const cut = mount(<ManageCoursePage authors={[]} course="" actions=""/>);
   })
 });
