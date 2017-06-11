@@ -45,7 +45,7 @@ function updateCourseSuccess(course) {
  * @returns {{type, course: *}} - The action to be dispatched.
  *
  */
-function createCourseSuccess(course) {
+export function createCourseSuccess(course) {
   return {type: types.CREATE_COURSE_SUCCESS, course};
 }
 
