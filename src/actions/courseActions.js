@@ -34,7 +34,7 @@ function loadCoursesSuccessful(courses) {
  * @returns {{type, course: *}} - The action to be dispatched.
  *
  */
-function updateCourseSuccess(course) {
+export function updateCourseSuccess(course) {
   return {type: types.UPDATE_COURSE_SUCCESS, course};
 }
 
