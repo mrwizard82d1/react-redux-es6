@@ -68,8 +68,33 @@ export class ManageCoursePage extends React.Component {
     return this.setState({course});
   }
 
+  courseFormIsValid() {
+    // Begin assuming it is *not* valid.
+    let isValid = false;
+    // Yet initialize `errors` to an empty object. (An object supports capturing all
+    // errors at once.
+    let errors = {};
+
+    // Validate the course title.
+    if (this.state.course.title.length < 5) {
+      isValid = false;
+      errors.title = 'Title must be at least 5 characters.';
+    }
+
+    // Set the `errors` property in the state.
+    this.setState({errors});
+
+    return isValid;
+  }
+
   saveCourse(event) {
     event.preventDefault();
+
+    // If the submitted course form is not valid, abandon further processing.
+    if (! this.courseFormIsValid()) {
+      return;
+    }
+
     this.setState({saving: true});
     this.props.actions.saveCourse(this.state.course)
       .then(this.redirect)
