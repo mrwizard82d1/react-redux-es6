@@ -22,7 +22,18 @@ import { ManageCoursePage } from './ManageCoursePage';
 
 describe('ManageCoursePage', () => {
   it('sets an error when saving a course with no title', () => {
-    const cut = mount(<ManageCoursePage authors={[]} course="" actions=""/>);
+    // We supply an empty course to test saving a course.
+    const props = {
+      actions: {
+        saveCourse: () => { return Promise.resolve(); }
+      },
+      authors: [],
+      // The course must have an empty title.
+      course: {
+        title: "",
+      },
+    };
+    const cut = mount(<ManageCoursePage {...props} />);
 
     /**
      * Find the actual save button in the DOM.
@@ -37,12 +48,15 @@ describe('ManageCoursePage', () => {
      *   Error: This method is only meant to be run on a single node. 0 found
      *   instead.
      *
-     * My working hypothesis is that `enzyme` returns wrapper that corresponds
+     * I discovered that `enzyme` returns a non-null wrapper that corresponds
      * to no DOM node. Thus, it is not `null`, but it supports limited enzyme
      * methods.
      */
     const actualSaveButton = cut.find('input[value="Save"]').last();
-
     expect(actualSaveButton.prop('type')).toBe('submit');
+
+    actualSaveButton.simulate('click');
+
+    expect(cut.state().errors.title).toBe('Title must be at least 5 characters.');
   })
 });
