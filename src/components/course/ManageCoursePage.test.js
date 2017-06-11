@@ -30,8 +30,8 @@ describe('ManageCoursePage', () => {
       authors: [],
       // The course must have an empty title.
       course: {
-        title: "",
-      },
+        title: ""
+      }
     };
     const cut = mount(<ManageCoursePage {...props} />);
 
@@ -58,5 +58,5 @@ describe('ManageCoursePage', () => {
     actualSaveButton.simulate('click');
 
     expect(cut.state().errors.title).toBe('Title must be at least 5 characters.');
-  })
+  });
 });

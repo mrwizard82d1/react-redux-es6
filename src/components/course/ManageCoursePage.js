@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as courseActions from "../../actions/courseActions";
 import CourseForm from "./CourseForm";
+import { authorsFormattedForSelection } from "../selectors/selectors";
 import toastr from "toastr";
 
 /**
@@ -172,15 +173,8 @@ function mapStateToProps(state, ownProps) {
     course = candidateCourse || course;
   }
 
-  // Map the author information to author "view information"
-  const authorsFormattedForSelection = state.authors.map(author => {
-    return {
-      value: author.id,
-      text: `${author.firstName} ${author.lastName}`
-    };
-  });
   return {
-    authors: authorsFormattedForSelection,
+    authors: authorsFormattedForSelection(state.authors),
     course: course
   };
 }
